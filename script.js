@@ -126,7 +126,6 @@ canvas.addEventListener('mouseup', () => {
   if (selectedFrameIndex === -1 || selectedFrameIndex === frames.length) {
     addFrame();
   } else {
-    // 選択中のフレームに現在のパス（ストロークの配列）を追加
     frames[selectedFrameIndex] = [...frames[selectedFrameIndex] || [], ...currentPath];
     updateTimeline();
     redrawCanvas(selectedFrameIndex);
@@ -134,6 +133,47 @@ canvas.addEventListener('mouseup', () => {
   }
 });
 
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault(); // デフォルトのタッチ操作を防止
+  drawing = true;
+  const touch = e.touches[0];
+  const startPoint = { x: touch.clientX - canvas.offsetLeft, y: touch.clientY - canvas.offsetTop };
+  currentPath.push([startPoint]);
+});
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault(); // デフォルトのタッチ操作を防止
+  if (!drawing) return;
+  const touch = e.touches[0];
+  const currentPoint = { x: touch.clientX - canvas.offsetLeft, y: touch.clientY - canvas.offsetTop };
+  currentPath[currentPath.length - 1].push(currentPoint);
+  redrawCanvas(selectedFrameIndex);
+  // 現在の描画プレビュー（タッチ操作用）
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = 'black';
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  if (currentPath.length > 0 && currentPath[currentPath.length - 1].length > 0) {
+    ctx.moveTo(currentPath[currentPath.length - 1][0].x, currentPath[currentPath.length - 1][0].y);
+    for (let i = 1; i < currentPath[currentPath.length - 1].length; i++) {
+      ctx.lineTo(currentPath[currentPath.length - 1][i].x, currentPoint.y);
+    }
+    ctx.stroke();
+  }
+});
+
+canvas.addEventListener('touchend', () => {
+  drawing = false;
+  if (selectedFrameIndex === -1 || selectedFrameIndex === frames.length) {
+    addFrame();
+  } else {
+    frames[selectedFrameIndex] = [...frames[selectedFrameIndex] || [], ...currentPath];
+    updateTimeline();
+    redrawCanvas(selectedFrameIndex);
+    currentPath = [];
+  }
+});
 
 function playAnimation() {
   if (isPlaying || frames.length === 0) return;
