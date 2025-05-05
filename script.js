@@ -115,7 +115,7 @@ canvas.addEventListener('mousemove', (e) => {
   if (currentPath.length > 0 && currentPath[currentPath.length - 1].length > 0) {
     ctx.moveTo(currentPath[currentPath.length - 1][0].x, currentPath[currentPath.length - 1][0].y);
     for (let i = 1; i < currentPath[currentPath.length - 1].length; i++) {
-      ctx.lineTo(currentPath[currentPath.length - 1][i].x, currentPath[currentPath.length - 1][i].y);
+      ctx.lineTo(currentPath[currentPath.length - 1][i].x, currentPath[currentPath.length - 1][i].y); // ★修正
     }
     ctx.stroke();
   }
@@ -157,7 +157,7 @@ canvas.addEventListener('touchmove', (e) => {
   if (currentPath.length > 0 && currentPath[currentPath.length - 1].length > 0) {
     ctx.moveTo(currentPath[currentPath.length - 1][0].x, currentPath[currentPath.length - 1][0].y);
     for (let i = 1; i < currentPath[currentPath.length - 1].length; i++) {
-      ctx.lineTo(currentPath[currentPath.length - 1][i].x, currentPoint.y);
+      ctx.lineTo(currentPath[currentPath.length - 1][i].x, currentPath[currentPath.length - 1][i].y); // ★修正
     }
     ctx.stroke();
   }
