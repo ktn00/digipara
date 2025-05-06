@@ -1,39 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<title>でじぱら</title>
-<style>
-  body { margin: 0; display: flex; flex-direction: column; align-items: center; }
-  canvas { display: block; border: 1px solid #ccc; }
-  .controls { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
-  #timeline-container { width: 500px; height: 80px; border: 1px solid #ccc; margin-top: 20px; overflow-x: auto; position: relative; }
-  #timeline { display: flex; position: absolute; left: 0; top: 0; }
-  .frame-thumbnail { width: 60px; height: 60px; border: 1px solid #eee; margin: 5px; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; font-size: 0.8em; cursor: pointer; }
-  .frame-thumbnail.selected { border: 2px solid blue; }
-  .framerate-control { display: flex; align-items: center; }
-  .framerate-control label { margin-right: 5px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>でじぱら</title>
+    <link rel="stylesheet" href="timeline.css">
 </head>
 <body>
-  <canvas id="myCanvas" width="500" height="300"></canvas>
-  <div class="controls">
-    <button id="playButton">再生</button>
-    <button id="addFrameButton">フレーム追加</button>
-    <button id="deleteFrameButton">フレーム削除</button>
-    <div class="framerate-control">
-      <label for="framerate">FPS:</label>
-      <select id="framerate">
-        <option value="4">4</option>
-        <option value="8" selected>8</option>
-        <option value="12">12</option>
-        <option value="24">24</option>
-      </select>
+    <canvas id="myCanvas" width="1000" height="562.5"></canvas>
+    <div class="controls">
+        <button id="playButton">再生</button>
+        <button id="addFrameButton">フレーム追加</button>
+        <button id="deleteFrameButton">フレーム削除</button>
+        <button id="undoButton">undo</button>
+	<button id="blackPenButton" class="active-tool">ペン</button>
+	<button id="eraserButton">消しゴム</button>
+        <div class="framerate-control">
+            <label for="framerate">FPS:</label>
+            <select id="framerate">
+                <option value="2">2</option>
+                <option value="4" selected>4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="12">12</option>
+            </select>
+        </div>
     </div>
-  </div>
-  <div id="timeline-container">
-    <div id="timeline">
-      </div>
-  </div>
-  <script src="script.js"></script>
+    <div id="timeline-container">
+        <div id="timeline">
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
